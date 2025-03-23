@@ -1,0 +1,28 @@
+micronaut:
+  application:
+    name: usercrudapp
+
+datasources:
+  default:
+    url: jdbc:postgresql://localhost:5432/userdb
+    username: postgres
+    password: testdb
+    driverClassName: org.postgresql.Driver
+data:
+  jdbc:
+    enabled: true
+
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    entity-scan:
+      packages: com.example.model
+
+
+logging:
+  level:
+    root: DEBUG
