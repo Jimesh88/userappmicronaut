@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.dao.UserRepository;
+import com.example.exception.UserNotFoundException;
 import com.example.model.User;
 import jakarta.inject.Singleton;
 
@@ -17,11 +18,11 @@ public class UserService {
     }
 
     public User getUser(Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElseThrow(()-> new UserNotFoundException("User with id %s not found".formatted(id)));
     }
 
     public User updateUser(Long id, User userDetails) {
-        User existingUser = userRepository.findById(id).orElseThrow();
+        User existingUser = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User with id %s not found".formatted(id)));
         existingUser.setName(userDetails.getName());
         existingUser.setEmail(userDetails.getEmail());
         existingUser.setAge(userDetails.getAge());
